@@ -1,14 +1,15 @@
 from sense_emu import SenseHat
 import http.client
 import urllib
+import paho.mqtt.client as mqtt
 
 sense = SenseHat()
 
 level = 0
 
-RED=(255,0,0)
-GREEN=(0,255,0)
-BLUE=(0,0,255)
+RED = (255,0,0)
+GREEN = (0,255,0)
+BLUE = (0,0,255)
 
 ### ThingSpeak Stuff
 # API KEY
@@ -20,19 +21,16 @@ headers = {"Content-type": "application/x-www-form-urlencoded"}
 # Create the connection
 conn = http.client.HTTPConnection("api.thingspeak.com:80")
 
-"""
-# Make the request: GET, POST, DELETE
-conn.request("POST", "/update", params, headers)
 
-# Get the response
-response = conn.getresponse()
+## MQTT Stuff
+broker_address = "broker.emqx.io"
 
-# Print the response
-print(response.status, response.reason)
-data = response.read()
-print (data)
-"""
+client = mqtt.Client()
+client.connect(broker_address, 1883, 60)
+client.loop_start()
 
+
+## LOOP
 while True:
     # Sense Data
     temp = round(sense.get_temperature(), 2)
@@ -80,8 +78,18 @@ while True:
         sense.show_message("H"+str(hum)+"%", text_colour = hum_color)
     if level == 2 :
         sense.show_message("P"+str(prss)+"mbar", text_colour = prss_color)
-        
-        
+    
+    
+    ## Alarming
+    if True:
+        client.publish("/temperature", temp)
+
+
+##unreachable closing
+# close MQTT client
+client.disconnect()
+client.loop_stop()
+
 # Close the connection
 conn.close()
         
