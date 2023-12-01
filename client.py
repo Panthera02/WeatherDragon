@@ -7,8 +7,8 @@ def on_message(client1, userdata, message):
     
 client.on_message = on_message
 
-client.subscribe("/temperature")
-
 client.connect("broker.emqx.io", 1883, 60)
+
+client.subscribe("/temperature")
 
 client.loop_forever()
