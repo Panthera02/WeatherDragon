@@ -1,15 +1,32 @@
-from sense_emu import SenseHat
+from sense_hat import SenseHat
 import http.client
 import urllib
 import paho.mqtt.client as mqtt
+import board
+import adafruit_si7021
+import adafruit_bmp3xx
 
-sense = SenseHat()
-
+## Generell
 level = 0
 
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
+
+## Sensors
+# temp & humid
+sensor = adafruit_si7021.SI7021(board.I2C())
+#https://github.com/davidrazmadzeExtra/Si_7021_Temp_Humidity
+
+# temp & pres
+bmp = adafruit_bmp3xx.BMP3XX_I2C(board.I2C())
+#https://learn.adafruit.com/adafruit-bmp388-bmp390-bmp3xx/python-circuitpython
+
+
+## SenseHat
+sense = SenseHat()
+
+
 
 ### ThingSpeak Stuff
 # API KEY
@@ -33,6 +50,8 @@ client.loop_start()
 ## LOOP
 while True:
     # Sense Data
+    temp3 = round(bmp.temperature, 2)
+    temp2 = round(sensor.temperature, 2)
     temp = round(sense.get_temperature(), 2)
     hum = round(sense.get_humidity(), 2)
     prss = round(sense.get_pressure(), 2)
@@ -74,18 +93,18 @@ while True:
             level = (level-1)%3
     if level == 0 :
         sense.show_message("T"+str(temp)+"ºC", text_colour = temp_color)
+        print("SenseHat: " + str(temp) + "; Sensor: " + str(temp2) + "; Sensor2: " + str(temp3))
     if level == 1 :
         sense.show_message("H"+str(hum)+"%", text_colour = hum_color)
     if level == 2 :
         sense.show_message("P"+str(prss)+"mbar", text_colour = prss_color)
     
     
-    ## Alarming
-    if True:
-        client.publish("/temperature", temp)
+    ## Publishing for phone
+    client.publish("/temperature", temp)
 
 
-##unreachable closing
+## unreachable closing
 # close MQTT client
 client.disconnect()
 client.loop_stop()
