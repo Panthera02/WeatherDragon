@@ -1,24 +1,24 @@
-\documentclass{article}
+\documentclass[titlepage]{article}
 \usepackage{geometry}
 \geometry{
-    paper=a4paper,
-    top=1.5cm,
-    bottom=2cm,
-    right=3cm,
-    left=3cm,
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
 }
 
 \usepackage{fancyhdr}
 \fancypagestyle{pdf}{ 
     \fancyhf{} % clear all header and footer fields
-    \fancyhead[R]{Practical Internet of Things with Raspberry Pi}
+    \fancyhead[L]{Practical Internet of Things with Raspberry Pi}
+    \fancyhead[R]{Weather Station}
     \fancyfoot[C]{\thepage}
     \setlength{\headheight}{13pt}
 }
 \pagestyle{pdf}
 
-\title{Weather Station}
-\author{Marius \and Leonard}
+\title{Practical Internet of Things with Raspberry Pi\\ Project: Weather Station}
+\author{Marius-Catalin Ghiuri\\Leonard Hörnlein}
 \date{\today}
 
 \begin{document}
