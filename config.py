@@ -36,6 +36,7 @@ def ledBlink():
     sleep(0.1)
     ledOff()
 
+
 ## Sensors
 # temp & humid
 si = adafruit_si7021.SI7021(board.I2C())
@@ -87,9 +88,9 @@ while True:
     response = conn.getresponse()
     
     # Print the response
-    print(response.status, response.reason)
+    #print(response.status, response.reason)
     data = response.read()
-    print (data)
+    #print (data)
     
     
     ## SenseHat Stuff
