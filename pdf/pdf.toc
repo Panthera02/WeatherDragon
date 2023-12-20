@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{}%
+\contentsline {section}{\numberline {2}Hardware}{2}{}%
+\contentsline {subsection}{\numberline {2.1}Hardware connection}{2}{}%
+\contentsline {section}{\numberline {3}Software implementation}{2}{}%
+\contentsline {section}{\numberline {4}Results}{2}{}%

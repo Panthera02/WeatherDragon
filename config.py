@@ -8,7 +8,7 @@ import adafruit_bmp3xx
 import RPi.GPIO as GPIO
 from time import sleep
 
-## Generell
+## General
 level = 0
 
 RED = (255,0,0)
@@ -53,7 +53,7 @@ sense = SenseHat()
 
 ### ThingSpeak Stuff
 # API KEY
-key = "FQLYNG5P6AOIPVZV"
+key = "#########"
 
 # Headers
 headers = {"Content-type": "application/x-www-form-urlencoded"}
